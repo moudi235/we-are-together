@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>We Are Together</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<style>
+body{font-family:Arial;background:#f5f7fb;text-align:center;padding:20px}
+.card{background:#fff;max-width:420px;margin:auto;padding:25px;border-radius:14px;box-shadow:0 8px 25px rgba(0,0,0,.08)}
+input,button{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid #ddd}
+button{background:#1a73e8;color:#fff;border:none;cursor:pointer}
+.flag{font-size:42px}
+.status{font-weight:bold;margin:10px 0}
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="flag">🇺🇸</div>
+<h2 id="title">We Are Together</h2>
+<button onclick="toggleLang()">🌐 عربي / English</button>
+<div id="status" class="status">Loading...</div>
+
+<form id="form">
+<input id="firstName" required placeholder="First Name">
+<input id="lastName" required placeholder="Last Name">
+<input id="email" type="email" required placeholder="Email">
+<input id="phone" required placeholder="Phone">
+<button type="submit" id="submitBtn">Register</button>
+</form>
+
+<div id="message"></div>
+</div>
+
+<script>
+// 🔥 ضع config هنا
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDZZDoFx4-8Ngac7JR36WO67YUCqabw0kA",
+  authDomain: "we-are-together-b770f.firebaseapp.com",
+  projectId: "we-are-together-b770f",
+  storageBucket: "we-are-together-b770f.firebasestorage.app",
+  messagingSenderId: "698473057651",
+  appId: "1:698473057651:web:13e14bcef84329fd2dc906"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// ====== limits ======
+const MAX_MAIN = 50;
+const MAX_TOTAL = 60;
+
+let isArabic=false;
+let currentCount=0;
+
+// ====== language ======
+function toggleLang(){
+  isArabic=!isArabic;
+  applyLang();
+}
+
+function applyLang(){
+  if(isArabic){
+    document.documentElement.lang="ar";
+    title.textContent="نحن معاً";
+    firstName.placeholder="الاسم";
+    lastName.placeholder="اللقب";
+    email.placeholder="البريد الإلكتروني";
+    phone.placeholder="رقم الهاتف";
+    submitBtn.textContent="تسجيل";
+  }else{
+    document.documentElement.lang="en";
+    title.textContent="We Are Together";
+    firstName.placeholder="First Name";
+    lastName.placeholder="Last Name";
+    email.placeholder="Email";
+    phone.placeholder="Phone";
+    submitBtn.textContent="Register";
+  }
+  updateStatus();
+}
+
+// ====== load count ======
+async function loadCount(){
+  const snap = await db.collection("registrations").get();
+  currentCount = snap.size;
+  updateStatus();
+}
+loadCount();
+
+// ====== status ======
+function updateStatus(){
+  if(currentCount < MAX_MAIN){
+    status.textContent = isArabic
+      ? `المقاعد المتبقية: ${MAX_MAIN-currentCount}`
+      : `Seats left: ${MAX_MAIN-currentCount}`;
+  }
+  else if(currentCount < MAX_TOTAL){
+    status.textContent = isArabic
+      ? "تم ملء المقاعد — قائمة الانتظار"
+      : "Main seats full — Waitlist";
+  }
+  else{
+    status.textContent = isArabic
+      ? "❌ تم إغلاق التسجيل"
+      : "❌ Registration closed";
+    form.style.display="none";
+  }
+}
+
+// ====== submit ======
+form.addEventListener("submit", async e=>{
+  e.preventDefault();
+
+  if(currentCount >= MAX_TOTAL) return;
+
+  const emailVal=email.value.trim();
+
+  // منع التكرار
+  const dup = await db.collection("registrations")
+    .where("email","==",emailVal).get();
+
+  if(!dup.empty){
+    message.textContent = isArabic
+      ? "⚠️ هذا الإيميل مسجل مسبقاً"
+      : "⚠️ Email already registered";
+    return;
+  }
+
+  currentCount++;
+
+  const type = currentCount <= MAX_MAIN ? "confirmed" : "waitlist";
+
+  await db.collection("registrations").add({
+    firstName:firstName.value,
+    lastName:lastName.value,
+    email:emailVal,
+    phone:phone.value,
+    type:type,
+    time:new Date()
+  });
+
+  message.textContent =
+    type==="confirmed"
+      ? (isArabic ? "✅ تم تأكيد تسجيلك" : "✅ You are confirmed")
+      : (isArabic ? "⏳ تم وضعك في الانتظار" : "⏳ You are on waitlist");
+
+  form.reset();
+  updateStatus();
+});
+</script>
+
+</body>
+</html>
