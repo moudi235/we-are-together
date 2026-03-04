@@ -3,62 +3,184 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>We Are Together</title>
+<title>We Are Together - Iftar</title>
 
+<!-- Firebase (اتركها كما هي عندك) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
-body{font-family:Arial;background:#f5f7fb;text-align:center;padding:20px}
-.card{background:#fff;max-width:420px;margin:auto;padding:25px;border-radius:14px;box-shadow:0 8px 25px rgba(0,0,0,.08)}
-input,button{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid #ddd}
-button{background:#1a73e8;color:#fff;border:none;cursor:pointer}
-.flag{font-size:42px}
-.status{font-weight:bold;margin:10px 0}
+body{
+  margin:0;
+  font-family:'Cairo', Arial;
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  color:#fff;
+}
+
+/* خلفية زخرفية */
+.bg-pattern{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,215,0,.08), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,215,0,.06), transparent 40%);
+  pointer-events:none;
+}
+
+/* الحاوية */
+.container{
+  max-width:480px;
+  margin:40px auto;
+  padding:20px;
+}
+
+/* البطاقة */
+.card{
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(14px);
+  border-radius:20px;
+  padding:28px;
+  box-shadow:0 20px 60px rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+/* اللوجو */
+.logo{
+  width:90px;
+  margin:auto;
+  display:block;
+}
+
+/* العنوان */
+.title{
+  text-align:center;
+  margin:10px 0 5px;
+  font-size:26px;
+  font-weight:700;
+}
+
+.subtitle{
+  text-align:center;
+  opacity:.8;
+  margin-bottom:18px;
+}
+
+/* صورة الإفطار */
+.hero{
+  width:100%;
+  border-radius:14px;
+  margin-bottom:16px;
+}
+
+/* الحالة */
+.status{
+  text-align:center;
+  font-weight:600;
+  margin:10px 0 16px;
+  color:#ffd700;
+}
+
+/* الحقول */
+input{
+  width:100%;
+  padding:13px;
+  margin:6px 0;
+  border-radius:10px;
+  border:none;
+  font-size:15px;
+}
+
+/* الزر */
+button{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border-radius:12px;
+  border:none;
+  background:linear-gradient(135deg,#f59e0b,#fbbf24);
+  color:#000;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  transition:.25s;
+}
+
+button:hover{
+  transform:translateY(-1px);
+}
+
+/* زر اللغة */
+.lang{
+  background:transparent;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.25);
+  margin-bottom:10px;
+}
+
+/* رسالة النجاح */
+.message{
+  text-align:center;
+  margin-top:12px;
+  font-weight:600;
+}
 </style>
 </head>
+
 <body>
 
-<div class="card">
-<div class="flag">🇺🇸</div>
-<h2 id="title">We Are Together</h2>
-<button onclick="toggleLang()">🌐 عربي / English</button>
-<div id="status" class="status">Loading...</div>
+<div class="bg-pattern"></div>
 
-<form id="form">
-<input id="firstName" required placeholder="First Name">
-<input id="lastName" required placeholder="Last Name">
-<input id="email" type="email" required placeholder="Email">
-<input id="phone" required placeholder="Phone">
-<button type="submit" id="submitBtn">Register</button>
-</form>
+<div class="container">
+  <div class="card">
 
-<div id="message"></div>
+    <img src="logo.png" class="logo" alt="Consulate Logo">
+
+    <div class="title" id="title">We Are Together</div>
+    <div class="subtitle" id="subtitle">Community Ramadan Iftar</div>
+
+    <button class="lang" onclick="toggleLang()">🌐 عربي / English</button>
+
+    <img src="iftar.jpg" class="hero" alt="Iftar">
+
+    <div id="status" class="status">Loading...</div>
+
+    <form id="form">
+      <input id="firstName" required placeholder="First Name">
+      <input id="lastName" required placeholder="Last Name">
+      <input id="email" type="email" required placeholder="Email">
+      <input id="phone" required placeholder="Phone">
+      <button type="submit" id="submitBtn">Register</button>
+    </form>
+
+    <div id="message" class="message"></div>
+
+  </div>
 </div>
 
 <script>
-// 🔥 ضع config هنا
-// Your web app's Firebase configuration
+// ===== Firebase config (ضع بياناتك) =====
 const firebaseConfig = {
-  apiKey: "AIzaSyDZZDoFx4-8Ngac7JR36WO67YUCqabw0kA",
-  authDomain: "we-are-together-b770f.firebaseapp.com",
-  projectId: "we-are-together-b770f",
-  storageBucket: "we-are-together-b770f.firebasestorage.app",
-  messagingSenderId: "698473057651",
-  appId: "1:698473057651:web:13e14bcef84329fd2dc906"
+  apiKey: "XXXX",
+  authDomain: "XXXX",
+  projectId: "XXXX",
+  storageBucket: "XXXX",
+  messagingSenderId: "XXXX",
+  appId: "XXXX"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// ====== limits ======
+// ===== limits =====
 const MAX_MAIN = 50;
 const MAX_TOTAL = 60;
 
 let isArabic=false;
 let currentCount=0;
 
-// ====== language ======
+// ===== language =====
 function toggleLang(){
   isArabic=!isArabic;
   applyLang();
@@ -68,6 +190,7 @@ function applyLang(){
   if(isArabic){
     document.documentElement.lang="ar";
     title.textContent="نحن معاً";
+    subtitle.textContent="دعوة إفطار رمضاني";
     firstName.placeholder="الاسم";
     lastName.placeholder="اللقب";
     email.placeholder="البريد الإلكتروني";
@@ -76,6 +199,7 @@ function applyLang(){
   }else{
     document.documentElement.lang="en";
     title.textContent="We Are Together";
+    subtitle.textContent="Community Ramadan Iftar";
     firstName.placeholder="First Name";
     lastName.placeholder="Last Name";
     email.placeholder="Email";
@@ -85,7 +209,7 @@ function applyLang(){
   updateStatus();
 }
 
-// ====== load count ======
+// ===== load count =====
 async function loadCount(){
   const snap = await db.collection("registrations").get();
   currentCount = snap.size;
@@ -93,19 +217,13 @@ async function loadCount(){
 }
 loadCount();
 
-// ====== status ======
+// ===== status =====
 function updateStatus(){
-  if(currentCount < MAX_MAIN){
+  if(currentCount < MAX_TOTAL){
     status.textContent = isArabic
-      ? `المقاعد المتبقية: ${MAX_MAIN-currentCount}`
-      : `Seats left: ${MAX_MAIN-currentCount}`;
-  }
-  else if(currentCount < MAX_TOTAL){
-    status.textContent = isArabic
-      ? "تم ملء المقاعد — قائمة الانتظار"
-      : "Main seats full — Waitlist";
-  }
-  else{
+      ? `عدد المسجلين: ${currentCount}`
+      : `Registered: ${currentCount}`;
+  } else {
     status.textContent = isArabic
       ? "❌ تم إغلاق التسجيل"
       : "❌ Registration closed";
@@ -113,7 +231,7 @@ function updateStatus(){
   }
 }
 
-// ====== submit ======
+// ===== submit =====
 form.addEventListener("submit", async e=>{
   e.preventDefault();
 
@@ -121,7 +239,6 @@ form.addEventListener("submit", async e=>{
 
   const emailVal=email.value.trim();
 
-  // منع التكرار
   const dup = await db.collection("registrations")
     .where("email","==",emailVal).get();
 
@@ -134,21 +251,18 @@ form.addEventListener("submit", async e=>{
 
   currentCount++;
 
-  const type = currentCount <= MAX_MAIN ? "confirmed" : "waitlist";
-
   await db.collection("registrations").add({
     firstName:firstName.value,
     lastName:lastName.value,
     email:emailVal,
     phone:phone.value,
-    type:type,
+    type:"pending",
     time:new Date()
   });
 
-  message.textContent =
-    type==="confirmed"
-      ? (isArabic ? "✅ تم تأكيد تسجيلك" : "✅ You are confirmed")
-      : (isArabic ? "⏳ تم وضعك في الانتظار" : "⏳ You are on waitlist");
+  message.textContent = isArabic
+    ? "✅ تم استلام طلبك وسيتم التواصل معك"
+    : "✅ Registration received. We will contact you";
 
   form.reset();
   updateStatus();
