@@ -5,37 +5,33 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>We Are Together - Iftar</title>
 
-<!-- Firebase (اتركها كما هي عندك) -->
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 
-<head>
-  <meta charset="UTF-8">
-  <title>Ramadan Iftar</title>
+<style>
+/* 🌙 فوانيس خفيفة */
+.lantern{
+  position:fixed;
+  top:-60px;
+  width:40px;
+  opacity:.18;
+  animation:float 12s linear infinite;
+  pointer-events:none;
+  z-index:0;
+}
 
-  <style>
-    /* 🌙 فوانيس خفيفة */
-    .lantern{
-      position:fixed;
-      top:-60px;
-      width:40px;
-      opacity:.18;
-      animation:float 12s linear infinite;
-      pointer-events:none;
-      z-index:0;
-    }
+.l1{ left:10%; animation-delay:0s; }
+.l2{ left:50%; animation-delay:4s; }
+.l3{ left:80%; animation-delay:8s; }
 
-    .l1{ left:10%; animation-delay:0s; }
-    .l2{ left:50%; animation-delay:4s; }
-    .l3{ left:80%; animation-delay:8s; }
-
-    @keyframes float{
-      0%{ transform:translateY(0); }
-      100%{ transform:translateY(120vh); }
-    }
-  </style>
+@keyframes float{
+  0%{ transform:translateY(0); }
+  100%{ transform:translateY(120vh); }
+}
+</style>
 </head>
 
 <style>
@@ -156,11 +152,11 @@ button:hover{
 </head>
 
 <body>
- <img src="images/lantern.png" class="lantern l1">
-  <img src="images/lantern.png" class="lantern l2">
-  <img src="images/lantern.png" class="lantern l3">
+  <img src="lantern.png" class="lantern l1">
+  <img src="lantern.png" class="lantern l2">
+  <img src="lantern.png" class="lantern l3">
+
 </body>
-<body>
 
 
 <div class="bg-pattern"></div>
