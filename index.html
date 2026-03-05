@@ -190,6 +190,10 @@ button:hover{
       <input id="lastName" required placeholder="Last Name">
       <input id="email" type="email" required placeholder="Email">
       <input id="phone" required placeholder="Phone">
+
+      <input id="guest1First" placeholder="Guest 1 Full name (optional)">
+      <input id="guest2First" placeholder="Guest 2 Full name (optional)">
+
       <button type="submit" id="submitBtn">Register</button>
     </form>
 
@@ -214,8 +218,18 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 // ===== limits =====
-const MAX_MAIN = 50;
-const MAX_TOTAL = 60;
+const MAX_MAIN = 100;
+const MAX_TOTAL = 120;
+
+// ====add guest===
+const guest1full = document.getElementById("guest1First").value.trim();
+const guest2full = document.getElementById("guest2First").value.trim();
+
+const guestList = [];
+if(guest1full) guestList.push({fullname: guest1full});
+if(guest2full) guestList.push({fullName: guest2full});
+
+//
 
 let isArabic=false;
 let currentCount=0;
@@ -252,7 +266,15 @@ function applyLang(){
 // ===== load count =====
 async function loadCount(){
   const snap = await db.collection("registrations").get();
-  currentCount = snap.size;
+  let count = 0;
+  snap.forEach(doc => {
+    count += 1; // الشخص الرئيسي
+    const data = doc.data();
+    if(data.guests && Array.isArray(data.guests)){
+      count += data.guests.length; // الضيوف
+    }
+  });
+  currentCount = count;
   updateStatus();
 }
 loadCount();
