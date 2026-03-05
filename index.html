@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>We Are Together - Iftar</title>
 
 <!-- Firebase -->
@@ -12,39 +12,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* 🌙 فوانيس خفيفة */
-.lantern{
-  position:fixed;
-  top:-60px;
-  width:40px;
-  opacity:.18;
-  animation:float 12s linear infinite;
-  pointer-events:none;
-  z-index:0;
-}
-
-.l1{ left:10%; animation-delay:0s; }
-.l2{ left:50%; animation-delay:4s; }
-.l3{ left:80%; animation-delay:8s; }
-.l4{ left:25%; animation-delay:2s; }
-.l5{ left:65%; animation-delay:6s; }
-.l6{ left:90%; animation-delay:9s; }
-
-@keyframes float{
-  0%{ transform:translateY(0); }
-  100%{ transform:translateY(120vh); }
-}
-</style>
-
-
-<style>
-body{
+body {
   margin:0;
   font-family:'Cairo', Arial;
-  background:linear-gradient(135deg,#f8fafc,#e2e8f0);
-  color:#1e293b;
+  background:linear-gradient(135deg,#cbd5e1,#f0f9ff);
+  color:#000;
 }
-
 
 /* خلفية زخرفية */
 .bg-pattern{
@@ -56,6 +29,26 @@ body{
   pointer-events:none;
 }
 
+/* فوانيس */
+.lantern{
+  position:fixed;
+  top:-60px;
+  width:40px;
+  opacity:.3;
+  animation:float 12s linear infinite;
+  pointer-events:none;
+  z-index:0;
+}
+.l1{ left:10%; animation-delay:0s; }
+.l2{ left:40%; animation-delay:3s; }
+.l3{ left:60%; animation-delay:6s; }
+.l4{ left:80%; animation-delay:9s; }
+
+@keyframes float{
+  0%{ transform:translateY(0); }
+  100%{ transform:translateY(120vh); }
+}
+
 /* الحاوية */
 .container{
   max-width:480px;
@@ -65,14 +58,11 @@ body{
 
 /* البطاقة */
 .card{
-  background:white;;
-    backdrop-filter:blur(14px);
+  background:rgba(255,255,255,0.8);
   border-radius:20px;
   padding:28px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.1);
-  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 20px 60px rgba(0,0,0,.2);
 }
-
 
 /* العنوان */
 .title{
@@ -100,25 +90,17 @@ body{
   text-align:center;
   font-weight:600;
   margin:10px 0 16px;
-  color:#f7cf06;
+  color:#ff8c00;
 }
 
 /* الحقول */
 input{
   width:100%;
   padding:13px;
-  margin:8px 0;
+  margin:6px 0;
   border-radius:10px;
-  border:1px solid #cbd5e1;   /* نفس لون زر اللغة */
-  background:#f8fafc;
+  border:1px solid #ccc;
   font-size:15px;
-  box-sizing:border-box;
-  }
-
-  input:focus{
-  outline:none;
-  border:1px solid #f7a311;
-  box-shadow:0 0 0 2px rgba(245,158,11,.2);
 }
 
 /* الزر */
@@ -128,7 +110,7 @@ button{
   margin-top:10px;
   border-radius:12px;
   border:none;
-  background:linear-gradient(135deg,rgba(218, 156, 74, 0.777),rgba(218, 156, 74, 0.777));
+  background:linear-gradient(135deg,#f59e0b,#fbbf24);
   color:#000;
   font-weight:700;
   font-size:16px;
@@ -142,10 +124,10 @@ button:hover{
 
 /* زر اللغة */
 .lang{
-  background:#f1f5f9;
-  color:#0f172a;
-  border:1px solid #cbd5e1;
-  border-radius:10px;
+  background:transparent;
+  color:#000;
+  border:1px solid rgba(0,0,0,.25);
+  margin-bottom:10px;
 }
 
 /* رسالة النجاح */
@@ -158,53 +140,41 @@ button:hover{
 </head>
 
 <body>
- <img src="lantern.png" class="lantern l1">
- <img src="lantern.png" class="lantern l2">
- <img src="lantern.png" class="lantern l3">
- <img src="lantern.png" class="lantern l4">
- <img src="lantern.png" class="lantern l5">
- <img src="lantern.png" class="lantern l6">
-
-
-
+  <!-- Lanterns -->
+  <img src="lantern.png" class="lantern l1">
+  <img src="lantern.png" class="lantern l2">
+  <img src="lantern.png" class="lantern l3">
+  <img src="lantern.png" class="lantern l4">
 
 <div class="bg-pattern"></div>
 
 <div class="container">
   <div class="card">
-
-  
-
- 
+    <div class="title" id="title">We Are Together</div>
     <div class="subtitle" id="subtitle">Community Ramadan Iftar</div>
 
     <img src="iftar.jpg" class="hero" alt="Iftar">
 
     <button class="lang" onclick="toggleLang()">🌐 عربي / English</button>
-   
 
-    <div id="status" class="status">Take Your Place ...</div>
+    <div id="status" class="status">Loading...</div>
 
     <form id="form">
       <input id="firstName" required placeholder="First Name">
       <input id="lastName" required placeholder="Last Name">
       <input id="email" type="email" required placeholder="Email">
       <input id="phone" required placeholder="Phone">
-
       <input id="guest1First" placeholder="Guest 1 Full name (optional)">
       <input id="guest2First" placeholder="Guest 2 Full name (optional)">
-
       <button type="submit" id="submitBtn">Register</button>
     </form>
 
     <div id="message" class="message"></div>
-
   </div>
 </div>
 
 <script>
-// 🔥 ضع config هنا
-// Your web app's Firebase configuration
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyDZZDoFx4-8Ngac7JR36WO67YUCqabw0kA",
   authDomain: "we-are-together-b770f.firebaseapp.com",
@@ -217,108 +187,97 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// ===== limits =====
+// Limits
 const MAX_MAIN = 100;
 const MAX_TOTAL = 120;
+let currentCount = 0;
+let isArabic = false;
 
-// ====add guest===
-const guest1full = document.getElementById("guest1First").value.trim();
-const guest2full = document.getElementById("guest2First").value.trim();
+// Elements
+const form = document.getElementById("form");
+const status = document.getElementById("status");
+const message = document.getElementById("message");
+const firstName = document.getElementById("firstName");
+const lastName = document.getElementById("lastName");
+const email = document.getElementById("email");
+const phone = document.getElementById("phone");
+const guest1El = document.getElementById("guest1First");
+const guest2El = document.getElementById("guest2First");
+const submitBtn = document.getElementById("submitBtn");
 
-const guestList = [];
-if(guest1full) guestList.push({fullname: guest1full});
-if(guest2full) guestList.push({fullName: guest2full});
-
-//
-
-let isArabic=false;
-let currentCount=0;
-
-// ===== language =====
+// Language toggle
 function toggleLang(){
-  isArabic=!isArabic;
+  isArabic = !isArabic;
   applyLang();
 }
 
 function applyLang(){
   if(isArabic){
     document.documentElement.lang="ar";
-    // title.textContent="نحن معاً";
+    title.textContent="نحن معاً";
     subtitle.textContent="دعوة إفطار رمضاني";
     firstName.placeholder="الاسم";
     lastName.placeholder="اللقب";
     email.placeholder="البريد الإلكتروني";
     phone.placeholder="رقم الهاتف";
+    guest1El.placeholder="ضيف 1 (اختياري)";
+    guest2El.placeholder="ضيف 2 (اختياري)";
     submitBtn.textContent="تسجيل";
   }else{
     document.documentElement.lang="en";
-    // title.textContent="We Are Together";
+    title.textContent="We Are Together";
     subtitle.textContent="Community Ramadan Iftar";
     firstName.placeholder="First Name";
     lastName.placeholder="Last Name";
     email.placeholder="Email";
     phone.placeholder="Phone";
+    guest1El.placeholder="Guest 1 Full name (optional)";
+    guest2El.placeholder="Guest 2 Full name (optional)";
     submitBtn.textContent="Register";
   }
   updateStatus();
 }
 
-// ===== load count =====
+// Load current count from Firebase
 async function loadCount(){
   const snap = await db.collection("registrations").get();
-  let count = 0;
+  currentCount = 0;
   snap.forEach(doc => {
-    count += 1; // الشخص الرئيسي
+    currentCount++; // main person
     const data = doc.data();
-    if(data.guests && Array.isArray(data.guests)){
-      count += data.guests.length; // الضيوف
-    }
+    if(data.guest1) currentCount++;
+    if(data.guest2) currentCount++;
   });
-  currentCount = count;
   updateStatus();
 }
 loadCount();
 
-
-await db.collection("registrations").add({
-  firstName:firstName.value,
-  lastName:lastName.value,
-  email:emailVal,
-  phone:phone.value,
-  type:"pending",
-  time:new Date(),
-  guests: guest1full.value,
-  guests2: guest2full.value,
-});
-
-
-
-
-// ===== status =====
+// Update status display
 function updateStatus(){
   if(currentCount < MAX_TOTAL){
     status.textContent = isArabic
       ? `عدد المسجلين: ${currentCount}`
-      : `Registered: ${currentCount}`;
+      : `People Registered: ${currentCount}`;
   } else {
     status.textContent = isArabic
-      ? "❌ تم إغلاق التسجيل"
-      : "❌ Registration closed";
+      ? "❌ تم إغلاق التسجيل. عذرًا، لقد وصلنا إلى الحد الأقصى من المشاركين"
+      : "❌ Registration closed. Sorry! We reached the maximum number of people.";
     form.style.display="none";
   }
 }
 
-// ===== submit =====
+// Submit form
 form.addEventListener("submit", async e=>{
   e.preventDefault();
 
   if(currentCount >= MAX_TOTAL) return;
 
-  const emailVal=email.value.trim();
+  const emailVal = email.value.trim();
+  const guest1 = guest1El.value.trim();
+  const guest2 = guest2El.value.trim();
 
-  const dup = await db.collection("registrations")
-    .where("email","==",emailVal).get();
-
+  // Check duplicate email
+  const dup = await db.collection("registrations").where("email","==",emailVal).get();
   if(!dup.empty){
     message.textContent = isArabic
       ? "⚠️ هذا الإيميل مسجل مسبقاً"
@@ -326,25 +285,39 @@ form.addEventListener("submit", async e=>{
     return;
   }
 
-  currentCount++;
+  // Count new registrants including guests
+  let newCount = 1;
+  if(guest1) newCount++;
+  if(guest2) newCount++;
 
+  if(currentCount + newCount > MAX_TOTAL){
+    message.textContent = isArabic
+      ? "❌ عدد المسجلين مع الضيوف تجاوز الحد المسموح"
+      : "❌ Total registrations would exceed the limit";
+    return;
+  }
+
+  // Add to Firebase
   await db.collection("registrations").add({
-    firstName:firstName.value,
-    lastName:lastName.value,
+    firstName:firstName.value.trim(),
+    lastName:lastName.value.trim(),
     email:emailVal,
-    phone:phone.value,
+    phone:phone.value.trim(),
+    guest1: guest1 || "",
+    guest2: guest2 || "",
     type:"pending",
     time:new Date()
   });
 
+  currentCount += newCount;
+
   message.textContent = isArabic
-    ? "✅ تم استلام طلبك وسيتم التواصل معك"
-    : "✅ Registration received. We will contact you";
+    ? "✅ تم استلام طلبك. سيتم تأكيد مكانك وتزويدك بموقع الإفطار عبر البريد أو الهاتف"
+    : "✅ Registration received. We will confirm your place and provide the Iftar location via email or phone.";
 
   form.reset();
   updateStatus();
 });
 </script>
-
 </body>
 </html>
