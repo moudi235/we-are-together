@@ -26,6 +26,9 @@
 .l1{ left:10%; animation-delay:0s; }
 .l2{ left:50%; animation-delay:4s; }
 .l3{ left:80%; animation-delay:8s; }
+.l4{ left:25%; animation-delay:2s; }
+.l5{ left:65%; animation-delay:6s; }
+.l6{ left:90%; animation-delay:9s; }
 
 @keyframes float{
   0%{ transform:translateY(0); }
@@ -38,8 +41,8 @@
 body{
   margin:0;
   font-family:'Cairo', Arial;
-  background:linear-gradient(135deg,#0f172a,#1e293b);
-  color:#fff;
+  background:linear-gradient(135deg,#f8fafc,#e2e8f0);
+  color:#1e293b;
 }
 
 /* خلفية زخرفية */
@@ -61,11 +64,11 @@ body{
 
 /* البطاقة */
 .card{
-  background:rgba(255,255,255,0.06);
-  backdrop-filter:blur(14px);
+  background:white;;
+    backdrop-filter:blur(14px);
   border-radius:20px;
   padding:28px;
-  box-shadow:0 20px 60px rgba(0,0,0,.35);
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
   border:1px solid rgba(255,255,255,0.08);
 }
 
@@ -105,7 +108,7 @@ input{
   padding:13px;
   margin:6px 0;
   border-radius:10px;
-  border:none;
+  border:1px solid #ddd;
   font-size:15px;
 }
 
@@ -146,9 +149,12 @@ button:hover{
 </head>
 
 <body>
-  <img src="lantern.png" class="lantern l1">
-  <img src="lantern.png" class="lantern l2">
-  <img src="lantern.png" class="lantern l3">
+ <img src="lantern.png" class="lantern l1">
+ <img src="lantern.png" class="lantern l2">
+ <img src="lantern.png" class="lantern l3">
+ <img src="lantern.png" class="lantern l4">
+ <img src="lantern.png" class="lantern l5">
+ <img src="lantern.png" class="lantern l6">
 
 
 
@@ -163,9 +169,10 @@ button:hover{
  
     <div class="subtitle" id="subtitle">Community Ramadan Iftar</div>
 
-    <button class="lang" onclick="toggleLang()">🌐 عربي / English</button>
-
     <img src="iftar.jpg" class="hero" alt="Iftar">
+
+    <button class="lang" onclick="toggleLang()">🌐 عربي / English</button>
+   
 
     <div id="status" class="status">Take Your Place ...</div>
 
