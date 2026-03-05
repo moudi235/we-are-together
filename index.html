@@ -287,27 +287,11 @@ await db.collection("registrations").add({
   phone:phone.value,
   type:"pending",
   time:new Date(),
-  guests: guestList
+  guests: guest1full.value,
+  guests2: guest2full.value,
 });
 
-const docRef = await db.collection("registrations").add({
-  firstName:firstName.value,
-  lastName:lastName.value,
-  email:emailVal,
-  phone:phone.value,
-  type:"pending",
-  time:new Date()
-});
 
-guestList.forEach(async guest=>{
-  await db.collection("registrations").add({
-    firstName: guest.firstName,
-    lastName: guest.lastName,
-    type:"guest",
-    parentEmail: emailVal,
-    time: new Date()
-  });
-});
 
 
 // ===== status =====
