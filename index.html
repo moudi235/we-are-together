@@ -279,6 +279,37 @@ async function loadCount(){
 }
 loadCount();
 
+
+await db.collection("registrations").add({
+  firstName:firstName.value,
+  lastName:lastName.value,
+  email:emailVal,
+  phone:phone.value,
+  type:"pending",
+  time:new Date(),
+  guests: guestList
+});
+
+const docRef = await db.collection("registrations").add({
+  firstName:firstName.value,
+  lastName:lastName.value,
+  email:emailVal,
+  phone:phone.value,
+  type:"pending",
+  time:new Date()
+});
+
+guestList.forEach(async guest=>{
+  await db.collection("registrations").add({
+    firstName: guest.firstName,
+    lastName: guest.lastName,
+    type:"guest",
+    parentEmail: emailVal,
+    time: new Date()
+  });
+});
+
+
 // ===== status =====
 function updateStatus(){
   if(currentCount < MAX_TOTAL){
