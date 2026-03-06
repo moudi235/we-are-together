@@ -190,7 +190,7 @@ const db = firebase.firestore();
 
 // Limits
 const MAX_MAIN = 90;
-const MAX_TOTAL = 100;
+const MAX_TOTAL = 90;
 let currentCount = 0;
 let isArabic = false;
 
@@ -215,7 +215,7 @@ function toggleLang(){
 function applyLang(){
   if(isArabic){
     document.documentElement.lang="ar";
-    title.textContent="نحن معاً";
+    title.textContent="إفطار الجالية الجزائرية بسان فرانسيسكو";
     subtitle.textContent="دعوة إفطار رمضاني";
     firstName.placeholder="الاسم";
     lastName.placeholder="اللقب";
@@ -323,5 +323,6 @@ form.addEventListener("submit", async e=>{
 </body>
 
 </html>
+
 
 
