@@ -255,16 +255,21 @@ loadCount();
 
 // Update status display
 function updateStatus(){
+
+  // إذا لم نصل للحد الأقصى لا نعرض أي نص
   if(currentCount < MAX_TOTAL){
-  status.textContent = isArabic
-    // ? `عدد المسجلين: ${currentCount}`
-   //: `People Registered: ${currentCount}`;
- } else {
-   status.textContent = isArabic
-     ? "❌ تم إغلاق التسجيل. عذرًا، لقد وصلنا إلى الحد الأقصى من المشاركين"
-     : "❌ Registration closed. Sorry! We reached the maximum number of people.";
-   form.style.display="none";
+    status.textContent = "";
   }
+
+  // عند الوصول للحد الأقصى
+  else{
+    status.textContent = isArabic
+      ? "❌ تم إغلاق التسجيل. عذرًا، لقد وصلنا إلى الحد الأقصى من المشاركين"
+      : "❌ Registration closed. Sorry! We reached the maximum number of people.";
+
+    form.style.display="none";
+  }
+
 }
 
 // Submit form
